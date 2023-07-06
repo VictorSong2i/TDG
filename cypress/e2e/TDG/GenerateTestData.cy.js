@@ -8,24 +8,6 @@ let mergedDetails = gpDetails.concat(title)
 let numData = 5000
 
 describe('generate test data', () => {
-  it.skip('Generate data', () => {
-    cy.visit('https://develop.d3nylssqqiptjw.amplifyapp.com/');
-
-    //Log in
-    cy.get('input#email-input').click().type('joebloggs@gmail.com')
-    cy.get('input#password-input').click().type('123456')
-    cy.get('button#login-button').click()
-
-    //Generate data
-    cy.get('.nav-links-container > a:nth-of-type(2)').click();
-    cy.get('input#entries-counter').clear().type('5000');
-    cy.get('div#personal > .search-wrapper.searchWrapper').click();
-    cy.contains('First name').click()
-    // cy.get('button#submit-template').click()
-    // cy.startTimer();
-    cy.get('button#generate-values').click()
-    // cy.logExecutionTime();
-  })
 
   it.skip('Generate data with selected fields',()=>{
     cy.visit('https://develop.d3nylssqqiptjw.amplifyapp.com/');
@@ -80,7 +62,7 @@ describe('generate test data', () => {
     cy.get('button#logout-link').click()
   })
 
-  it.only('Check contents of csv and json file match',()=>{
+  it('Check contents of csv and json file match',()=>{
     cy.task('unzipping', { path, file}) //Unzip file
     let renameFile = file.substring(0,file.length-4) //Deletes .zip in name
 
@@ -90,14 +72,32 @@ describe('generate test data', () => {
     cy.readFile(csvFilePath).then((csvFile)=>{
       let lines = csvFile.split('\n')
       let fields = lines[0].split(',')
-      cy.log(lines[1])
-      expect(lines.length).to.equal(numData+1);
+      cy.log(lines[0])
+      cy.log(lines[0][0])
+      let varNames = lines[0].split(',')
+      cy.log(varNames)
+      expect(lines.length).to.equal(numData+1)
       expect(fields.length).to.equal(mergedDetails.length)
+      
+      cy.fixture("dataName.json").then((properties)=>{
+          cy.log(properties)
+          cy.log(varNames[0].substring(1,varNames[0].length-1))
+          cy.log(varNames[1])
+          
+          // // cy.log(Object.keys(properties).find(key => properties[key] === varNames[mergedDetails[1]]))
+          // cy.log(Object.keys(properties).find(key => properties[key] == varNames[i].substring(1,varNames[i].length-1)))
+      
+          for(let i=0;i < mergedDetails.length; i++){
+            cy.log(Object.keys(properties).find(key => properties[key] == varNames[i].substring(1,varNames[i].length-1)))
+           expect(Object.keys(properties).find(key => properties[key] == varNames[i].substring(1,varNames[i].length-1))).to.exist
+          }
+          
+          
+      })
     })
 
     // cy.readFile(jsonFilePath).then((jsonFile)=>{
     //   cy.log(Object.keys(jsonFile))
     // })
-    
   })
 })
