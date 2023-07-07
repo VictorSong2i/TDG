@@ -2,7 +2,7 @@ let path = 'cypress/downloads/'
 let file = 'GENERIC-IPbaqN.zip'
 let numData = 5000
 
-import 'cypress-file-upload';
+import 'cypress-file-upload'; //imports upload 
 
 describe('TDG Test suite', () => {
 
