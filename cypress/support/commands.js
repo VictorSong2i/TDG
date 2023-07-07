@@ -56,3 +56,5 @@ Cypress.Commands.add('moveCsvToFixtures', (csvFileName) => {
       cy.log(`Moved ${csvFileName} to fixtures folder`);
     })
 });
+
+

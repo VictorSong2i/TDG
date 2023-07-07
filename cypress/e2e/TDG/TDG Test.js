@@ -144,12 +144,11 @@ describe('generate test data', () => {
     cy.contains('Choose File').click();
     const fileName = 'CSV1.csv';
     cy.fixture(fileName).then(fileContent=>{
-      cy.contains('Choose File').attachFile({
+        cy.get('#file-upload-input').attachFile({
             fileContent:fileContent,
             fileName: fileName,
             mimeType: 'text/csv'
         });
-        // cy.contains('Choose File').click().uploadFile(fileName);
     })  
 
     cy.get('#personal_title').clear();
