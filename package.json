@@ -1,6 +1,24 @@
 {
-  "dependencies": {
+  "name": "2ijunecypress",
+  "version": "1.0.0",
+  "description": "a cypress demo",
+  "main": "helloWorld.js",
+  "scripts": {
+    "test": "npx cypress run --spec \"./cypress/e2e/Tests/**/*.cy.js\" --headed",
+    "chrome": "npx cypress run --spec \"./cypress/e2e/Tests/**/*.cy.js\" --headed --browser chrome"
+  },
+  "keywords": [
+    "cypress",
+    "demo",
+    "training"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/grep": "^3.1.5",
+    "cypress": "^12.16.0",
     "cypress-downloadfile": "^1.2.3",
+    "cypress-file-upload": "^5.0.8",
     "decompress": "^4.2.1"
   }
 }

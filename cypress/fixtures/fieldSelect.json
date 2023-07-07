@@ -1,0 +1,7 @@
+{
+    "Personal Data": ["Title","First name","Last Name","Date Of Birth"],
+    "Medical": ["GP Location","GP Name", "Patient Ref No"],
+    "Residential Address": ["Full Address"]
+}
+
+
