@@ -10,7 +10,7 @@
 **NOTE:** 
 you will need to run the following commands in terminal when you use vscode: 
 
->npm cypress install
+>npm install cypress
 >
 >npm install --save-dev cypress-file-upload
 
