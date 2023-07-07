@@ -15,11 +15,11 @@ you will need to run the following commands in terminal when you use vscode:
 >npm install --save-dev cypress-file-upload
 
 
-On top of ***`TDG Test.cy.js`***, there are several settings you will need to adjust:
+At the very top of the following file: ***`TDG Test.cy.js`***, there are several settings you will need to adjust:
 
 ```
 let file = 'GENERIC-IPbaqN.zip
 let numData = 5000
 ```
 
-change file to the zip file downloaded into `cypress/downloads` and change `numData` to number of entries you want to generate
+Change file to the zip file downloaded into `cypress/downloads` and change `numData` to number of entries you want to generate
