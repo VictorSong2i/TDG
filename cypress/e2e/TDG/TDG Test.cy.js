@@ -1,10 +1,12 @@
 let path = 'cypress/downloads/'
-let file = 'GENERIC-t1rqOU.zip'
+let file = 'GENERIC-IPbaqN.zip'
 let numData = 5000
 
-describe('generate test data', () => {
+import 'cypress-file-upload';
 
-  it.skip('Generate data with selected fields',()=>{
+describe('TDG Test suite', () => {
+
+  it('Generate data with selected fields',()=>{
     cy.visit('https://develop.d3nylssqqiptjw.amplifyapp.com/');
 
     //Log in
@@ -77,6 +79,7 @@ describe('generate test data', () => {
     //Log out
     cy.get('button#logout-link').click()
   })
+})
 
   it('Check contents of csv and json file match',()=>{
     cy.task('unzipping', { path, file}) //Unzip file into its csv and json
@@ -128,42 +131,56 @@ describe('generate test data', () => {
     })
   })
 
-  it.only('Change data file and re-upload to site', function () {
+  it('Change data file and re-upload to site', function () {
 
+    //Login 
     cy.visit('https://develop.d3nylssqqiptjw.amplifyapp.com/');
-    cy.get('#email-input').clear();
-    cy.get('#password-input').clear();
-    cy.get('#email-input').type('joebloggs@gmail.com');
-    cy.get('#password-input').type('123456');
+    cy.get('#email-input').clear().type('joebloggs@gmail.com');
+    cy.get('#password-input').clear().type('123456');
     cy.get('#login-button').click();
 
-    cy.moveCsvToFixtures('CSV1.csv');
+        //move to csv1.csv from downloads to fixtures
+        cy.moveCsvToFixtures('CSV1.csv');
 
-    cy.get('#root > header > div.navbar > div > div > a:nth-child(2)').click();
-    cy.get('#next-section-btn > button').click();
-    cy.contains('Choose File').click();
-    const fileName = 'CSV1.csv';
-    cy.fixture(fileName).then(fileContent=>{
-        cy.get('#file-upload-input').attachFile({
-            fileContent:fileContent,
-            fileName: fileName,
-            mimeType: 'text/csv'
-        });
-    })  
+        //click on data in the nav bar
+        cy.get('#root > header > div.navbar > div > div > a:nth-child(2)').click();
 
-    cy.get('#personal_title').clear();
-    cy.get('#personal_title').type('Mr');
-    cy.get('#personal_dob').type('Sun Oct 22 1999 16:34:00 GMT+0100 (British Summer Time)')
-    cy.get('#medical_gpName').clear();
-    cy.get('#medical_gpName').type('GP Daniel');
+        //click the next button to upload a document
+        cy.get('#next-section-btn > button').click();
 
-    cy.get('#csv-json-btn').click();
-    cy.get('#btn-down-xml').click();
-    cy.get('#download-button').click();
-    cy.get('#upload-button').click();
-    cy.get('#modal-ok-button').click();
-    
-    //unzip 
-    //then compare the csv files from fixture and download
-  })
+        //this block of code would upload the CSV1.csv from the fixtures to the browser
+        const fileName = 'CSV1.csv';
+        cy.fixture(fileName).then(fileContent=>{
+            cy.get('#file-upload-input').attachFile({
+                fileContent:fileContent,
+                fileName: fileName,
+                mimeType: 'text/csv'
+            });
+        })  
+
+
+        //clear the text field and type new text to be updated
+        cy.get('#personal_title').clear().type('Mr');
+        cy.get('#personal_dob').clear().type('Sun Oct 22 1999 16:34:00 GMT+0100 (British Summer Time)');
+        cy.get('#medical_gpName').clear().type('GP Daniel');
+
+        //select the csv json option
+        cy.get('#csv-json-btn').click();
+
+        //submit values
+        cy.get('#btn-down-xml').click();
+
+        //then press the download button to download the altered version of the generated data
+        cy.get('#download-button').click();
+
+        //save the altered version of the generated data
+        cy.get('#upload-button').click();
+
+        //press ok once the save has been completed
+        cy.get('#modal-ok-button').click();
+
+       
+
+        //logout of the website
+        cy.get('#logout-link').click();
 })
