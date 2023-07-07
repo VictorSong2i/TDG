@@ -33,9 +33,9 @@ let numData = 5000
 
 Change the zip folder name in `let file = 'GENERIC-IPbaqN.zip'` to the zip file name downloaded into `cypress/downloads` and change `numData` to number entered from *Test 1*.
 
-*Test 2* will unzip the folder into its csv and json equivalents and store into the downloads folder.
+*Test 2* will unzip the folder into its CSV and JSON equivalents and store into the downloads folder.
 
-*Test 3* will copy the `CSV1.csv' unzipped from *Test 2* and change the contents of the fields and re-uploads onto the TDG website. (**NOTE:** Currently TDG does not have ability to re-download it's contents so cannot test to validate a changed file after uploaded matches)
+*Test 3* will copy the `CSV1.csv` unzipped from *Test 2* and change the contents of the fields and re-uploads onto the TDG website. (**NOTE:** Currently TDG does not have ability to re-download it's contents so cannot test to validate a changed file after uploaded matches)
 
 ## Things to improve/implement
 
