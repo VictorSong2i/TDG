@@ -9,8 +9,12 @@
 ---
 
 
+User can currently input any fields to be generated in the personal data, medical and residential address tabs in `fieldSelect.json` in fixtures folder. Make sure the names **align** with those on [the TDG data generator site](https://develop.d3nylssqqiptjw.amplifyapp.com/data)
 
-You will need to run the following commands in terminal when you use vscode: 
+***NOTE:*** 
+
+**NOTE:** 
+you will need to run the following commands in terminal when you use vscode: 
 
 >npm install cypress@12.14.0
 >
@@ -36,10 +40,21 @@ User can currently input any fields to be generated in the personal data, medica
 
 Additionally there is a `initialSettings.json` file in fixtures folder to modify number of entries created and a path to where download will be, default is `cypress/downloads` folder.
 
+You will need to run *Test 1*, *Test 2* and *Test 3* ***seprately and in order***, the `sequencedTests.cy.js` is for running Tests 1-3 in order but currently does not update zip folder downloaded from *Test 1*, *Test 2* uses a pre-downloaded zip folder which is then accessed and validated.
 
+Before running Test 1, you will need to set number of entries to download by changing `numData` variable in *line 1 in* ***`TDG Test 1.cy.js`***
+``` 
+let numData = 5000
+```
+After running *Test 1*, there will be a new zip file downloaded.
 
-## Things to improve
+At the very top of the following file: ***`TDG Test.cy.js`***, there are several settings you will need to adjust:
 
-Currently, the user can only update fields in personal data, medical and residential address tabs, need to introduce all the fields into `fieldSelect.json` and update selecting all options in test 1.
+```
+let file = 'GENERIC-IPbaqN.zip
+let numData = 5000
+```
+
+Change file to the zip file downloaded into `cypress/downloads` and change `numData` to number of entries you want to generate
 
 TDG site does not update history tab fast enough for assertions to be made if file was saved correctly in test 1. Ater re-downloading the file with its modified contents in test 3, the zip folder contains no CSV or JSON files. 
